@@ -3,6 +3,9 @@
 
 ## Setup
 
+[pt-br](https://github.com/polutz/generator-ptz-react/docs/contribute.pt-br.md)
+[en-us](https://github.com/polutz/generator-ptz-react/docs/contribute.md)
+
 ### Download project
 ```
     git clone https://github.com/polutz/generator-ptz-react.git

@@ -1,5 +1,8 @@
 # Como contribuir
 
+[pt-br](https://github.com/polutz/generator-ptz-react/docs/contribute.pt-br.md)
+[en-us](https://github.com/polutz/generator-ptz-react/docs/contribute.md)
+
 
 ## Setup
 
