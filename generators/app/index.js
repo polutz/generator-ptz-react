@@ -62,18 +62,25 @@ module.exports = class extends Generator {
             this.destinationPath('webpack.config.prod.js'));
 
 
+        // Tools - DEGING
+        this.fs.copy(this.templatePath('tools/_webpack-public-path.js'),
+            this.destinationPath('tools/webpack-public-path.js'));
+
+        this.fs.copy(this.templatePath('tools/_srcServer.js'),
+            this.destinationPath('tools/srcServer.js'));
+        // Tools - END
+
+
+        // src - DEGING
+        this.fs.copy(this.templatePath('src/_index.ejs'),
+            this.destinationPath('src/index.ejs'));
+
         this.fs.copy(this.templatePath('src/_app.tsx'),
             this.destinationPath('src/app.tsx'));
 
         this.fs.copy(this.templatePath('src/_AppDispatcher.ts'),
             this.destinationPath('src/AppDispatcher.ts'));
-
-
-        // Tools - DEGING
-
-        this.fs.copy(this.templatePath('tools/_srcServer.js'),
-            this.destinationPath('tools/srcServer.js'));
-        // Tools - END
+        // src - END
 
 
         // Core - DEGING
@@ -135,8 +142,8 @@ module.exports = class extends Generator {
             return;
 
         console.log('installing from ptz-domain');
-        this.npmInstall(['ptz-core-domain'], { 'save': true });
 
+        this.npmInstall(['autoprefixer'], { 'save-dev': true });
         this.npmInstall(['file-loader'], { 'save-dev': true });
         this.npmInstall(['url-loader'], { 'save-dev': true });
 
@@ -146,7 +153,7 @@ module.exports = class extends Generator {
         this.npmInstall(['webpack-hot-middleware'], { 'save-dev': true });
         this.npmInstall(['webpack-md5-hash'], { 'save-dev': true });
         this.npmInstall(['html-webpack-plugin'], { 'save-dev': true });
-        
+
         this.npmInstall(['babel-preset-react'], { 'save-dev': true });
         this.npmInstall(['babel-relay-plugin'], { 'save-dev': true });
 
@@ -154,6 +161,7 @@ module.exports = class extends Generator {
         this.npmInstall(['connect-history-api-fallback'], { 'save-dev': true });
 
 
+        this.npmInstall(['ptz-core-domain'], { 'save': true });
 
         this.npmInstall(['classnames'], { 'save': true });
         this.npmInstall(['react'], { 'save': true });
@@ -163,11 +171,6 @@ module.exports = class extends Generator {
         this.npmInstall(['graphql-relay'], { 'save': true });
         this.npmInstall(['react-router'], { 'save': true });
         this.npmInstall(['jquery'], { 'save': true });
-
-        //   "dependencies": {
-        //     "babel-loader": "^6.2.10",
-        //     "jquery": "^3.1.1",
-        //     "kerberos": "0.0.22"
     }
 
     //end - Called last, cleanup, say good bye, etc

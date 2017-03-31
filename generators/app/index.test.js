@@ -31,7 +31,8 @@ describe('ptz-domain:app', function () {
 
         it('creates tools files', function () {
             assert.file([                
-                'tools/srcServer.js'
+                'tools/srcServer.js',
+                'tools/webpack-public-path.js'
             ]);
         });
 
@@ -41,6 +42,7 @@ describe('ptz-domain:app', function () {
                 'webpack.config.js',
                 'webpack.config.dev.js',
                 'webpack.config.prod.js',
+                'src/index.ejs',
                 'src/app.tsx',
                 'src/AppDispatcher.ts'
             ]);

@@ -8,7 +8,7 @@
     "postinstall": "typings install",
     "start": "npm run js && webpack && babel-node --presets react,es2015 dist/index.js",
     "front": "npm run js && webpack",
-    "open:src": "babel-node tools/srcServer.js",
+    "open:src": "npm run js && babel-node tools/srcServer.js",
     "server": "npm run js && babel-node --presets es2015 dist/server/index.js",
     "lint": "tslint ./src/**/*.ts ./src/**/*.test.ts ./src/**/*.d.ts",
     "js": "gulp js",
