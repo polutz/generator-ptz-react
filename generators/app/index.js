@@ -145,7 +145,8 @@ module.exports = class extends Generator {
         this.npmInstall(['webpack-dev-middleware'], { 'save-dev': true });
         this.npmInstall(['webpack-hot-middleware'], { 'save-dev': true });
         this.npmInstall(['webpack-md5-hash'], { 'save-dev': true });
-
+        this.npmInstall(['html-webpack-plugin'], { 'save-dev': true });
+        
         this.npmInstall(['babel-preset-react'], { 'save-dev': true });
         this.npmInstall(['babel-relay-plugin'], { 'save-dev': true });
 
