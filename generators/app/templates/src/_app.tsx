@@ -24,4 +24,4 @@ ReactDOM.render(
         Component={UserReport}
         route={new HomeRoute()}
     />,
-    document.getElementById('react'));
+    document.getElementById('app'));
