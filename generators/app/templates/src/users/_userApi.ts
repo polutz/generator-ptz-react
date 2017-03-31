@@ -1,11 +1,11 @@
-import {post} from 'jquery';
+import { post } from 'jquery';
 import ServerActions from '../actions/ServerActions';
 
-var API = {
-	fetchLinks(){
-		console.log('1. In API');
+const API = {
+    fetchLinks() {
+        console.log('1. In API');
 
-		post('/graphql',{
+        post('/graphql', {
             query: `{
                 links {
                     _id,
@@ -14,10 +14,10 @@ var API = {
                 }
             }`
         }).done(resp => {
-			console.log(resp);
-			ServerActions.receiveLinks(resp.data.links);
-		});
-	}
+            console.log(resp);
+            ServerActions.receiveLinks(resp.data.links);
+        });
+    }
 };
 
 export default API;
