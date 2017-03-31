@@ -34,10 +34,7 @@ module.exports = class extends Generator {
         const pkg = _.merge({
             //"description": "this is a Polutz React App.",
             scripts: {
-                "start": "npm run js && webpack && babel-node --presets react,es2015 dist/index.js",
-                "front": "npm run js && webpack",
-                "open:src": "babel-node tools/srcServer.js",
-                "server": "npm run js && babel-node --presets es2015 dist/server/index.js"
+                "open:src": "babel-node tools/srcServer.js"
             }
         }, currentPkg);
 

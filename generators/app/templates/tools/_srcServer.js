@@ -20,7 +20,7 @@ browserSync({
     port: 3001
   },
   server: {
-    baseDir: 'src',
+    baseDir: 'dist',
 
     middleware: [
       historyApiFallback(),
