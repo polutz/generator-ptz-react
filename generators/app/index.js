@@ -58,7 +58,7 @@ module.exports = class extends Generator {
 
         this.fs.copy(this.templatePath('src/_app.tsx'),
             this.destinationPath('src/app.tsx'));
-            
+
         this.fs.copy(this.templatePath('src/_AppDispatcher.ts'),
             this.destinationPath('src/AppDispatcher.ts'));
 
@@ -147,6 +147,7 @@ module.exports = class extends Generator {
         this.npmInstall(['react-dom'], { 'save': true });
         this.npmInstall(['react-relay'], { 'save': true });
         this.npmInstall(['react-router'], { 'save': true });
+        this.npmInstall(['jquery'], { 'save': true });
 
         //   "dependencies": {
         //     "babel-loader": "^6.2.10",
