@@ -29,10 +29,18 @@ describe('ptz-domain:app', function () {
             ]);
         });
 
+        it('creates tools files', function () {
+            assert.file([                
+                'tools/srcServer.js'
+            ]);
+        });
+
         it('creates front files', function () {
             assert.file([                
                 'babelRelayPlugin.js',
                 'webpack.config.js',
+                'webpack.config.dev.js',
+                'webpack.config.prod.js',
                 'src/app.tsx',
                 'src/AppDispatcher.ts'
             ]);

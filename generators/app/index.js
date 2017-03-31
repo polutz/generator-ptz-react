@@ -55,6 +55,12 @@ module.exports = class extends Generator {
         this.fs.copy(this.templatePath('_webpack.config.js'),
             this.destinationPath('webpack.config.js'));
 
+        this.fs.copy(this.templatePath('_webpack.config.dev.js'),
+            this.destinationPath('webpack.config.dev.js'));
+
+        this.fs.copy(this.templatePath('_webpack.config.prod.js'),
+            this.destinationPath('webpack.config.prod.js'));
+
 
         this.fs.copy(this.templatePath('src/_app.tsx'),
             this.destinationPath('src/app.tsx'));
@@ -63,12 +69,20 @@ module.exports = class extends Generator {
             this.destinationPath('src/AppDispatcher.ts'));
 
 
+        // Tools - DEGING
+
+        this.fs.copy(this.templatePath('tools/_srcServer.js'),
+            this.destinationPath('tools/srcServer.js'));
+        // Tools - END
+
+
+        // Core - DEGING
         this.fs.copy(this.templatePath('src/core/components/_Errors.tsx'),
             this.destinationPath('src/core/components/Errors.tsx'));
 
         this.fs.copy(this.templatePath('src/core/components/_TextInput.tsx'),
             this.destinationPath('src/core/components/TextInput.tsx'));
-
+        // Core - END
 
         // Users - BEGIN
         this.fs.copy(this.templatePath('src/users/_userApi.ts'),
@@ -140,12 +154,12 @@ module.exports = class extends Generator {
 
 
 
-        this.npmInstall(['classnames'], { 'save': true });        
+        this.npmInstall(['classnames'], { 'save': true });
         this.npmInstall(['react'], { 'save': true });
         this.npmInstall(['react-dom'], { 'save': true });
         this.npmInstall(['flux'], { 'save': true });
         this.npmInstall(['react-relay'], { 'save': true });
-        this.npmInstall(['graphql-relay'], { 'save': true });        
+        this.npmInstall(['graphql-relay'], { 'save': true });
         this.npmInstall(['react-router'], { 'save': true });
         this.npmInstall(['jquery'], { 'save': true });
 
