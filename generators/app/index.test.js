@@ -20,35 +20,42 @@ describe('ptz-domain:app', function () {
                 'README.md',
                 'tsconfig.json',
                 'typings.json',
-                '.babelrc',
                 '.gitignore',
                 '.travis.yml',
                 
                 'src/index.ts',
                 'src/errors.ts',
-                'typings/index.d.ts'
+                'typings/index.d.ts'                
             ]);
         });
 
-        // it('adds default ngapp', function () {
-        //     assert.fileContent('src/app/app.js', /angular.module\('app'/);
-        // });
+        it('creates front files', function () {
+            assert.file([                
+                'babelRelayPlugin.js',
+                'webpack.config.js',
+                'src/app.tsx',
+                'src/AppDispatcher.ts'
+            ]);
+        });
+
+        it('creates core files', function () {
+            assert.file([           
+                'src/core/components/Errors.tsx',
+                'src/core/components/TextInput.tsx'
+            ]);
+        });
+
+        it('creates users files', function () {
+            assert.file([                
+                'src/users/userApi.ts',
+                'src/users/userConstants.ts',
+                'src/users/actions/userServerActions.ts',
+                'src/users/components/CreateUserForm.tsx',
+                'src/users/components/User.tsx',
+                'src/users/components/UserReport.tsx',
+                'src/users/mutations/SaveUserMutation.ts',
+                'src/users/stores/UserStore.ts',
+            ]);
+        });
     });
-
-    // describe('ngapp prompt', function () {
-    //     before(function (done) {
-    //         helpers.run(path.join(__dirname, '../app'))
-    //             .withArguments(['MyCoolApp'])
-    //             .withOptions({ skipInstall: true })
-    //             .withPrompts({ ngappname: 'fooBarApp' })
-    //             .on('end', done);
-    //     });
-
-    //     it('injects custom ngappname', function () {
-    //         assert.fileContent('src/app/app.js', /angular.module\('fooBarApp'/);
-    //         assert.fileContent('src/index.html', /<html ng-app="fooBarApp">/);
-    //         assert.fileContent('src/app/home/home.controller.js', /angular.module\('fooBarApp'\).controller\('HomeCtrl', HomeCtrl\);/);
-
-    //     });
-    // });
 });

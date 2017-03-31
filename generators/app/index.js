@@ -31,9 +31,8 @@ module.exports = class extends Generator {
 
         const currentPkg = this.fs.readJSON(this.destinationPath('package.json'), {});
 
-        const pkg = extend({
-            description: this.props.description,
-            homepage: this.props.homepage,
+        const pkg = _.merge({
+            //"description": "this is a Polutz React App.",
             scripts: {
                 "start": "npm run js && webpack && babel-node --presets react,es2015 dist/index.js",
                 "front": "npm run js && webpack",
@@ -57,7 +56,9 @@ module.exports = class extends Generator {
             this.destinationPath('webpack.config.js'));
 
 
-        this.fs.copy(this.templatePath('src/_app.tsx'), this.destinationPath('src/app.tsx'));
+        this.fs.copy(this.templatePath('src/_app.tsx'),
+            this.destinationPath('src/app.tsx'));
+            
         this.fs.copy(this.templatePath('src/_AppDispatcher.ts'),
             this.destinationPath('src/AppDispatcher.ts'));
 
