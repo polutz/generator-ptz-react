@@ -143,6 +143,20 @@ module.exports = class extends Generator {
 
         console.log('installing from ptz-domain');
 
+        this.npmInstall(['babel-cli'], { 'save- dev': true });
+        this.npmInstall(['babel-core'], { 'save-dev': true });
+        this.npmInstall(['babel-eslint'], { 'save-dev': true });
+        this.npmInstall(['babel-jest'], { 'save-dev': true });
+        this.npmInstall(['babel-loader'], { 'save-dev': true });
+        this.npmInstall(['babel-plugin-transform-react-constant-elements'], { 'save-dev': true });
+        this.npmInstall(['babel-plugin-transform-react-remove-prop-types'], { 'save-dev': true });
+        this.npmInstall(['babel-polyfill'], { 'save-dev': true });
+        this.npmInstall(['babel-preset-latest'], { 'save-dev': true });
+        this.npmInstall(['babel-preset-react'], { 'save-dev': true });
+        this.npmInstall(['babel-preset-react-hmre'], { 'save-dev': true });
+        this.npmInstall(['babel-preset-stage-1": "6.16.0'], { 'save-dev': true });
+        this.npmInstall(['babel-relay-plugin'], { 'save-dev': true });
+
         this.npmInstall(['autoprefixer'], { 'save-dev': true });
         this.npmInstall(['file-loader'], { 'save-dev': true });
         this.npmInstall(['url-loader'], { 'save-dev': true });
@@ -154,8 +168,6 @@ module.exports = class extends Generator {
         this.npmInstall(['webpack-md5-hash'], { 'save-dev': true });
         this.npmInstall(['html-webpack-plugin'], { 'save-dev': true });
 
-        this.npmInstall(['babel-preset-react'], { 'save-dev': true });
-        this.npmInstall(['babel-relay-plugin'], { 'save-dev': true });
 
         this.npmInstall(['browser-sync'], { 'save-dev': true });
         this.npmInstall(['connect-history-api-fallback'], { 'save-dev': true });
@@ -166,10 +178,12 @@ module.exports = class extends Generator {
         this.npmInstall(['classnames'], { 'save': true });
         this.npmInstall(['react'], { 'save': true });
         this.npmInstall(['react-dom'], { 'save': true });
-        this.npmInstall(['flux'], { 'save': true });
-        this.npmInstall(['react-relay'], { 'save': true });
-        this.npmInstall(['graphql-relay'], { 'save': true });
+        this.npmInstall(['react-hot-loader'], { 'save': true });
         this.npmInstall(['react-router'], { 'save': true });
+        this.npmInstall(['react-relay'], { 'save': true });
+
+        this.npmInstall(['flux'], { 'save': true });
+        this.npmInstall(['graphql-relay'], { 'save': true });
         this.npmInstall(['jquery'], { 'save': true });
     }
 

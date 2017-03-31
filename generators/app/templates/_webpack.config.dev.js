@@ -11,7 +11,7 @@ export default {
   entry: [
     // must be first entry to properly set public path
     './tools/webpack-public-path',
-    'react-hot-loader/patch',
+    'react-hot-loader',
     'webpack-hot-middleware/client?reload=true',
     path.resolve(__dirname, 'dist/index.js') // Defining path seems necessary for this to work consistently on Windows machines.
   ],
