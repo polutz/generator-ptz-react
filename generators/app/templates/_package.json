@@ -8,6 +8,7 @@
     "postinstall": "typings install",
     "start": "npm run js && webpack && babel-node --presets react,es2015 dist/index.js",
     "front": "npm run js && webpack",
+    "open:src": "babel-node tools/srcServer.js",
     "server": "npm run js && babel-node --presets es2015 dist/server/index.js",
     "lint": "tslint ./src/**/*.ts ./src/**/*.test.ts ./src/**/*.d.ts",
     "js": "gulp js",
@@ -29,47 +30,5 @@
     "presets": [
       "es2015"
     ]
-  },
-  "dependencies": {
-    "babel-loader": "^6.2.10",
-    "babel-preset-react": "^6.16.0",
-    "babel-relay-plugin": "^0.10.0",
-    "classnames": "^2.2.5",
-    "dotenv": "^4.0.0",
-    "events": "^1.1.1",
-    "express": "^4.14.0",
-    "express-graphql": "^0.6.1",
-    "flux": "^3.1.2",
-    "graphql": "^0.8.2",
-    "graphql-relay": "^0.4.4",
-    "jquery": "^3.1.1",
-    "kerberos": "0.0.22",
-    "mongodb": "^2.2.21",
-    "npm-run-all": "^4.0.2",
-    "ptz-assert": "^1.2.0",
-    "ptz-user-app": "^1.0.2",
-    "ptz-user-domain": "^1.1.0",
-    "ptz-user-graphql": "^1.0.1",
-    "ptz-user-repository": "^1.0.1",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-relay": "^0.10.0"
-  },
-  "devDependencies": {
-    "babel-core": "^6.21.0",
-    "babel-polyfill": "^6.22.0",
-    "babel-preset-es2015": "^6.18.0",
-    "codecov": "^1.0.1",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-typescript": "^3.1.4",
-    "gulp-webpack": "^1.5.0",
-    "istanbul": "^0.4.5",
-    "mocha": "^3.2.0",
-    "mocha-lcov-reporter": "^1.2.0",
-    "nyc": "^10.1.2",
-    "sinon": "^1.17.7",
-    "typescript": "^2.1.6",
-    "typings": "^2.1.0"
   }
 }

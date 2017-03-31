@@ -25,34 +25,36 @@ module.exports = class extends Generator {
         this.log('configuring');
     }
 
-    //default - If the method name doesn't match a priority, it will be pushed to this group.
-    default() {
-        this.log('default');
-        this.composeWith(require.resolve('generator-ptz/generators/app'), {
-            isComposing: true,
-            skipInstall: this.options.skipInstall,
-            ptz: this.options.ptz
-        });
-    }
-
     //writing - Where you write the generator specific files (routes, controllers, etc)
     writing() {
         console.log('ptz-domain options =>>>>>>>>>>>>>>>>>>>>>>>>>>>>', this.options.ptz);
 
-        this.fs.copyTpl(
-            this.templatePath('_package.json'),
-            this.destinationPath('package.json'),
-            this.options.ptz);
+        const currentPkg = this.fs.readJSON(this.destinationPath('package.json'), {});
+
+        const pkg = extend({
+            description: this.props.description,
+            homepage: this.props.homepage,
+            scripts: {
+                "start": "npm run js && webpack && babel-node --presets react,es2015 dist/index.js",
+                "front": "npm run js && webpack",
+                "open:src": "babel-node tools/srcServer.js",
+                "server": "npm run js && babel-node --presets es2015 dist/server/index.js"
+            }
+        }, currentPkg);
+
+        // Let's extend package.json so we're not overwriting user previous fields
+        this.fs.writeJSON(this.destinationPath('package.json'), pkg);
 
         this.fs.copyTpl(
             this.templatePath('_README.md'),
             this.destinationPath('README.md'),
             this.options.ptz);
 
+        this.fs.copy(this.templatePath('_babelRelayPlugin.js'),
+            this.destinationPath('babelRelayPlugin.js'));
 
-        this.fs.copy(this.templatePath('_webpack.config.js'), this.destinationPath('webpack.config.js'));
-        this.fs.copy(this.templatePath('_package.json'), this.destinationPath('package.json'));
-        this.fs.copy(this.templatePath('_webpack.config.js'), this.destinationPath('webpack.config.js'));
+        this.fs.copy(this.templatePath('_webpack.config.js'),
+            this.destinationPath('webpack.config.js'));
 
 
         this.fs.copy(this.templatePath('src/_app.tsx'), this.destinationPath('src/app.tsx'));
@@ -89,9 +91,19 @@ module.exports = class extends Generator {
         this.fs.copy(this.templatePath('src/users/mutations/_SaveUserMutation.ts'),
             this.destinationPath('src/users/mutations/SaveUserMutation.ts'));
 
-        this.fs.copy(this.templatePath('src/users/stores/_UserStore.ts'), 
+        this.fs.copy(this.templatePath('src/users/stores/_UserStore.ts'),
             this.destinationPath('src/users/stores/UserStore.ts'));
         // Users - END
+    }
+
+    //default - If the method name doesn't match a priority, it will be pushed to this group.
+    default() {
+        this.log('default');
+        this.composeWith(require.resolve('generator-ptz/generators/app'), {
+            isComposing: true,
+            skipInstall: this.options.skipInstall,
+            ptz: this.options.ptz
+        });
     }
 
     //conflicts - Where conflicts are handled (used internally)
@@ -109,6 +121,36 @@ module.exports = class extends Generator {
 
         console.log('installing from ptz-domain');
         this.npmInstall(['ptz-core-domain'], { 'save': true });
+
+        this.npmInstall(['file-loader'], { 'save-dev': true });
+        this.npmInstall(['url-loader'], { 'save-dev': true });
+
+        this.npmInstall(['webpack'], { 'save-dev': true });
+        this.npmInstall(['webpack-bundle-analyzer'], { 'save-dev': true });
+        this.npmInstall(['webpack-dev-middleware'], { 'save-dev': true });
+        this.npmInstall(['webpack-hot-middleware'], { 'save-dev': true });
+        this.npmInstall(['webpack-md5-hash'], { 'save-dev': true });
+
+        this.npmInstall(['babel-preset-react'], { 'save-dev': true });
+        this.npmInstall(['babel-relay-plugin'], { 'save-dev': true });
+
+        this.npmInstall(['browser-sync'], { 'save-dev': true });
+        this.npmInstall(['connect-history-api-fallback'], { 'save-dev': true });
+
+
+
+        this.npmInstall(['classnames'], { 'save': true });
+        this.npmInstall(['flux'], { 'save': true });
+        this.npmInstall(['graphql-relay'], { 'save': true });
+        this.npmInstall(['react'], { 'save': true });
+        this.npmInstall(['react-dom'], { 'save': true });
+        this.npmInstall(['react-relay'], { 'save': true });
+        this.npmInstall(['react-router'], { 'save': true });
+
+        //   "dependencies": {
+        //     "babel-loader": "^6.2.10",
+        //     "jquery": "^3.1.1",
+        //     "kerberos": "0.0.22"
     }
 
     //end - Called last, cleanup, say good bye, etc
