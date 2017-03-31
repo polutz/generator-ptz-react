@@ -1,5 +1,5 @@
 import { post } from 'jquery';
-import ServerActions from '../actions/ServerActions';
+import ServerActions from './actions/userServerActions';
 
 const API = {
     fetchLinks() {

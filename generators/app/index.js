@@ -140,12 +140,12 @@ module.exports = class extends Generator {
 
 
 
-        this.npmInstall(['classnames'], { 'save': true });
-        this.npmInstall(['flux'], { 'save': true });
-        this.npmInstall(['graphql-relay'], { 'save': true });
+        this.npmInstall(['classnames'], { 'save': true });        
         this.npmInstall(['react'], { 'save': true });
         this.npmInstall(['react-dom'], { 'save': true });
+        this.npmInstall(['flux'], { 'save': true });
         this.npmInstall(['react-relay'], { 'save': true });
+        this.npmInstall(['graphql-relay'], { 'save': true });        
         this.npmInstall(['react-router'], { 'save': true });
         this.npmInstall(['jquery'], { 'save': true });
 
