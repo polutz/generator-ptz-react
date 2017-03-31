@@ -140,7 +140,7 @@ module.exports = class extends Generator {
 
         console.log('installing from ptz-domain');
 
-        this.npmInstall(['babel-cli'], { 'save- dev': true });
+        this.npmInstall(['babel-cli'], { 'save-dev': true });
         this.npmInstall(['babel-core'], { 'save-dev': true });
         this.npmInstall(['babel-eslint'], { 'save-dev': true });
         this.npmInstall(['babel-jest'], { 'save-dev': true });
@@ -171,6 +171,7 @@ module.exports = class extends Generator {
 
 
         this.npmInstall(['ptz-core-domain'], { 'save': true });
+        this.npmInstall(['ptz-user-domain'], { 'save': true });
 
         this.npmInstall(['classnames'], { 'save': true });
         this.npmInstall(['react'], { 'save': true });
