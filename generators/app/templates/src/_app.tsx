@@ -3,8 +3,13 @@ import ReactDOM from 'react-dom';
 import Relay from 'react-relay';
 //import Main from './links/components/main';
 import UserReport from './users/components/UserReport';
+import graphqlServerUrl from './graphqlServerUrl';
 
 console.log('Hello app.tsx');
+
+Relay.injectNetworkLayer(
+  new Relay.DefaultNetworkLayer(config.externalUrl)
+);
 
 class HomeRoute extends Relay.Route {
     static routeName = 'Home';
@@ -25,4 +30,3 @@ ReactDOM.render(
         route={new HomeRoute()}
     />,
     document.getElementById('app'));
-   

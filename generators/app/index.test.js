@@ -25,7 +25,9 @@ describe('ptz-domain:app', function () {
                 
                 'src/index.ts',
                 'src/errors.ts',
-                'typings/index.d.ts'                
+                'typings/index.d.ts',
+
+                'graphqlServerUrl.ts'
             ]);
         });
 
@@ -56,8 +58,7 @@ describe('ptz-domain:app', function () {
         });
 
         it('creates users files', function () {
-            assert.file([                
-                'src/users/userApi.ts',
+            assert.file([
                 'src/users/userConstants.ts',
                 'src/users/actions/userServerActions.ts',
                 'src/users/components/CreateUserForm.tsx',

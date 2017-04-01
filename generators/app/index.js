@@ -34,7 +34,10 @@ module.exports = class extends Generator {
         const pkg = _.merge({
             //"description": "this is a Polutz React App.",
             scripts: {
-                "open:src": "babel-node tools/srcServer.js"
+                "start-message": "babel-node tools/startMessage.js",
+                "start": "npm-run-all --parallel test:watch open:src",
+                "test:watch": "npm run test -- --watch",
+                "open:src": "babel-node tools/srcServer.js",     
             }
         }, currentPkg);
 
@@ -77,6 +80,9 @@ module.exports = class extends Generator {
 
         this.fs.copy(this.templatePath('src/_AppDispatcher.ts'),
             this.destinationPath('src/AppDispatcher.ts'));
+
+        this.fs.copy(this.templatePath('src/_graphqlServerUrl.ts'),
+            this.destinationPath('src/graphqlServerUrl.ts'));
         // src - END
 
 
@@ -89,9 +95,6 @@ module.exports = class extends Generator {
         // Core - END
 
         // Users - BEGIN
-        this.fs.copy(this.templatePath('src/users/_userApi.ts'),
-            this.destinationPath('src/users/userApi.ts'));
-
         this.fs.copy(this.templatePath('src/users/_userConstants.ts'),
             this.destinationPath('src/users/userConstants.ts'));
 
