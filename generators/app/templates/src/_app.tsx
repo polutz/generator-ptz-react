@@ -8,7 +8,7 @@ import graphqlServerUrl from './graphqlServerUrl';
 console.log('Hello app.tsx');
 
 Relay.injectNetworkLayer(
-  new Relay.DefaultNetworkLayer(config.externalUrl)
+  new Relay.DefaultNetworkLayer(graphqlServerUrl)
 );
 
 class HomeRoute extends Relay.Route {

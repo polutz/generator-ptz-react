@@ -37,7 +37,11 @@ module.exports = class extends Generator {
                 "start-message": "babel-node tools/startMessage.js",
                 "start": "npm-run-all --parallel test:watch open:src",
                 "test:watch": "npm run test -- --watch",
-                "open:src": "babel-node tools/srcServer.js",     
+                "open:src": "babel-node tools/srcServer.js",
+
+                //"start2": "npm-run-all --parallel test:watch open:src",
+                "front": "npm run js && webpack",
+                "start": "npm run js && webpack && babel-node --presets es2015 dist/simpleServer.js"
             }
         }, currentPkg);
 
@@ -72,8 +76,15 @@ module.exports = class extends Generator {
 
 
         // src - DEGING
+        this.fs.copy(this.templatePath('src/_simpleServer.ts'),
+            this.destinationPath('src/simpleServer.ts'));
+
         this.fs.copy(this.templatePath('src/_index.ejs'),
             this.destinationPath('src/index.ejs'));
+
+        // Not permanent
+        this.fs.copy(this.templatePath('dist/_index.html'),
+            this.destinationPath('dist/index.html'));
 
         this.fs.copy(this.templatePath('src/_app.tsx'),
             this.destinationPath('src/app.tsx'));
@@ -185,7 +196,6 @@ module.exports = class extends Generator {
 
         this.npmInstall(['flux'], { 'save': true });
         this.npmInstall(['graphql-relay'], { 'save': true });
-        this.npmInstall(['jquery'], { 'save': true });
     }
 
     //end - Called last, cleanup, say good bye, etc

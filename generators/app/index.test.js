@@ -27,7 +27,7 @@ describe('ptz-domain:app', function () {
                 'src/errors.ts',
                 'typings/index.d.ts',
 
-                'graphqlServerUrl.ts'
+                'src/graphqlServerUrl.ts'
             ]);
         });
 
@@ -44,7 +44,9 @@ describe('ptz-domain:app', function () {
                 'webpack.config.js',
                 'webpack.config.dev.js',
                 'webpack.config.prod.js',
+                'src/simpleServer.ts',
                 'src/index.ejs',
+                'dist/index.html',
                 'src/app.tsx',
                 'src/AppDispatcher.ts'
             ]);
