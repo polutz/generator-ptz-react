@@ -13,6 +13,9 @@ interface ITextInputProps {
 
 class TextInput extends React.Component<ITextInputProps, any> { // eslint-disable-line react/prefer-stateless-function
 
+    field: HTMLInputElement;
+    props: ITextInputProps;
+
     value() {
         return this.field.value;
     }
