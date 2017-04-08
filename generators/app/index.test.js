@@ -51,7 +51,6 @@ describe('ptz-domain:app', function () {
 
         it('creates core files', function () {
             assert.file([
-                'src/core/components/IComponent.d.ts',
                 'src/core/components/Errors.tsx',
                 'src/core/components/TextInput.tsx'
             ]);

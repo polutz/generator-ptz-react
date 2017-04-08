@@ -1,8 +1,14 @@
 import Relay from 'react-relay';
+import { IUser } from 'ptz-user-domain';
 
-class SaveUserMutation extends Relay.Mutation{
+interface SaveUserMutationProps {
+    user: IUser;
+    store: any;
+}
 
-    getMutation(){
+class SaveUserMutation extends Relay.Mutation<SaveUserMutationProps, any>{
+
+    getMutation() {
         console.log('SaveUserMutation getMutation');
 
         return Relay.QL`
@@ -10,20 +16,20 @@ class SaveUserMutation extends Relay.Mutation{
         `;
     }
 
-    getVariables(){
+    getVariables() {
         return this.props.user;
     }
 
-    getFatQuery(){
+    getFatQuery() {
         return Relay.QL`
             fragment on SaveUserPayload{
                 userEdge,
                 store { userConnection }
             }
-        `; 
+        `;
     }
 
-    getConfigs(){
+    getConfigs() {
         return [{
             type: 'RANGE_ADD',
             parentName: 'store',
@@ -31,9 +37,9 @@ class SaveUserMutation extends Relay.Mutation{
             connectionName: 'userConnection',
             edgeName: 'userEdge',
             rangeBehaviors: {
-                '':'append'
+                '': 'append'
             }
-        }]; 
+        }];
     }
 }
 

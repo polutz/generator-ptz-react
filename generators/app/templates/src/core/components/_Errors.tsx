@@ -1,10 +1,11 @@
 import React from 'react';
 import { Component } from 'react';
-import { IComponent } from './IComponent';
 
-type IErrorsComponent = ({ errors }) => void;
+interface IErrorsProps {
+    errors: string[];
+}
 
-const Errors: IComponent<any> & IErrorsComponent = ({ errors }) => {
+const Errors: React.StatelessComponent<IErrorsProps> = ({ errors }) => {
     const errorsList = errors
         ? errors.map(error => <li key={error}>{error}</li>)
         : [];

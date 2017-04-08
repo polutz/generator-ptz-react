@@ -40,6 +40,8 @@ module.exports = class extends Generator {
                 "start": "npm run js && webpack && babel-node --presets es2015 dist/simpleServer.js"
             },
             devDependencies: {
+                "@types/react": "^15.0.21",
+                "@types/react-relay": "^0.9.12",
                 "autoprefixer": "^6.7.7",
                 "babel-eslint": "^7.2.1",
                 "babel-jest": "^19.0.0",
@@ -146,9 +148,6 @@ module.exports = class extends Generator {
 
 
         // Core - DEGING
-        this.fs.copy(this.templatePath('src/core/components/_IComponent.d.ts'),
-            this.destinationPath('src/core/components/IComponent.d.ts'));
-
         this.fs.copy(this.templatePath('src/core/components/_Errors.tsx'),
             this.destinationPath('src/core/components/Errors.tsx'));
 

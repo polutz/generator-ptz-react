@@ -70,7 +70,7 @@ class UserReport extends React.Component<any, any>{
     }
 }
 
-UserReport = Relay.createContainer(UserReport, {
+export default Relay.createContainer(UserReport, {
     initialVariables: {
         limit: 20
     },
@@ -91,5 +91,3 @@ UserReport = Relay.createContainer(UserReport, {
        `
     }
 });
-
-export default UserReport;

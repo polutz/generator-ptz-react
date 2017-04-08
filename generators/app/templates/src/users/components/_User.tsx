@@ -1,7 +1,12 @@
 import React from 'react';
 import Relay from 'react-relay';
+import { IUser } from 'ptz-user-domain';
 
-class User extends React.Component {
+interface IUserProps {
+    user: IUser;
+}
+
+class User extends React.Component<IUserProps, any> {
     render() {
         let { user } = this.props;
         return (
@@ -16,7 +21,7 @@ class User extends React.Component {
     }
 }
 
-User = Relay.createContainer(User, {
+export default Relay.createContainer(User, {
     fragments: {
         user: () => Relay.QL`
             fragment on User {
@@ -29,5 +34,3 @@ User = Relay.createContainer(User, {
         `
     }
 });
-
-export default User;
