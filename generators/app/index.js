@@ -78,6 +78,24 @@ module.exports = class extends Generator {
         // Let's extend package.json so we're not overwriting user previous fields
         this.fs.writeJSON(this.destinationPath('package.json'), pkg);
 
+
+        ////////////////////////////////////////////////////////////////////
+        /// tsconfig.json - begin
+
+        const currentTsconfig = this.fs.readJSON(this.destinationPath('tsconfig.json'), {});
+
+        const newTsconfig = _.merge({
+            compilerOptions: {
+                jsx: "react"
+            }
+        }, currentTsconfig);
+
+        this.fs.writeJSON(this.destinationPath('tsconfig.json'), newTsconfig);
+
+        /// tsconfig.json - end
+        ////////////////////////////////////////////////////////////////////
+
+
         this.fs.copyTpl(
             this.templatePath('_README.md'),
             this.destinationPath('README.md'),
