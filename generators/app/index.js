@@ -12,7 +12,6 @@ module.exports = class extends Generator {
 
     //initializing - Your initialization methods (checking current project state, getting configs, etc)
     initializing() {
-        this.log('initializing');
     }
 
     //prompting - Where you prompt users for options (where you'd call this.prompt())
@@ -22,13 +21,10 @@ module.exports = class extends Generator {
 
     //    configuring - Saving configurations and configure the project (creating.editorconfig files and other metadata files)
     configuring() {
-        this.log('configuring');
     }
 
     //writing - Where you write the generator specific files (routes, controllers, etc)
     writing() {
-        console.log('ptz-domain options =>>>>>>>>>>>>>>>>>>>>>>>>>>>>', this.options.ptz);
-
         const currentPkg = this.fs.readJSON(this.destinationPath('package.json'), {});
 
         const pkg = _.merge({
@@ -42,6 +38,40 @@ module.exports = class extends Generator {
                 //"start2": "npm-run-all --parallel test:watch open:src",
                 "front": "npm run js && webpack",
                 "start": "npm run js && webpack && babel-node --presets es2015 dist/simpleServer.js"
+            },
+            devDependencies: {
+                "autoprefixer": "^6.7.7",
+                "babel-eslint": "^7.2.1",
+                "babel-jest": "^19.0.0",
+                "babel-loader": "^6.4.1",
+                "babel-plugin-transform-react-constant-elements": "^6.23.0",
+                "babel-plugin-transform-react-remove-prop-types": "^0.3.3",
+                "babel-preset-latest": "^6.24.1",
+                "babel-preset-react": "^6.24.1",
+                "babel-preset-react-hmre": "^1.1.1",
+                "babel-relay-plugin": "^0.11.0",
+                "browser-sync": "^2.18.8",
+                "connect-history-api-fallback": "^1.3.0",
+                "file-loader": "^0.11.1",
+                "html-webpack-plugin": "^2.28.0",
+                "url-loader": "^0.5.8",
+                "webpack": "^2.3.3",
+                "webpack-bundle-analyzer": "^2.3.1",
+                "webpack-dev-middleware": "^1.10.1",
+                "webpack-hot-middleware": "^2.18.0",
+                "webpack-md5-hash": "0.0.5"
+            },
+            dependencies: {
+                "classnames": "^2.2.5",
+                "flux": "^3.1.2",
+                "graphql-relay": "^0.5.1",
+                "ptz-core-domain": "^1.2.2",
+                "ptz-user-domain": "^1.2.5",
+                "react": "^15.4.2",
+                "react-dom": "^15.4.2",
+                "react-hot-loader": "^1.3.1",
+                "react-relay": "^0.10.0",
+                "react-router": "^4.0.0"
             }
         }, currentPkg);
 
@@ -131,7 +161,6 @@ module.exports = class extends Generator {
 
     //default - If the method name doesn't match a priority, it will be pushed to this group.
     default() {
-        this.log('default');
         this.composeWith(require.resolve('generator-ptz/generators/app'), {
             isComposing: true,
             skipInstall: this.options.skipInstall,
@@ -141,65 +170,13 @@ module.exports = class extends Generator {
 
     //conflicts - Where conflicts are handled (used internally)
     conflicts() {
-        this.log('conflicts');
     }
 
     //install - Where installation are run (npm, bower)
     install() {
-        console.log('install from ptz-domain');
-        console.log(this.options.ptz.runNpmInstall);
-
-        if (!this.options.ptz.runNpmInstall)
-            return;
-
-        console.log('installing from ptz-domain');
-
-        this.npmInstall(['babel-cli'], { 'save-dev': true });
-        this.npmInstall(['babel-core'], { 'save-dev': true });
-        this.npmInstall(['babel-eslint'], { 'save-dev': true });
-        this.npmInstall(['babel-jest'], { 'save-dev': true });
-        this.npmInstall(['babel-loader'], { 'save-dev': true });
-        this.npmInstall(['babel-plugin-transform-react-constant-elements'], { 'save-dev': true });
-        this.npmInstall(['babel-plugin-transform-react-remove-prop-types'], { 'save-dev': true });
-        this.npmInstall(['babel-polyfill'], { 'save-dev': true });
-        this.npmInstall(['babel-preset-latest'], { 'save-dev': true });
-        this.npmInstall(['babel-preset-react'], { 'save-dev': true });
-        this.npmInstall(['babel-preset-react-hmre'], { 'save-dev': true });
-        this.npmInstall(['babel-preset-stage-1": "6.16.0'], { 'save-dev': true });
-        this.npmInstall(['babel-relay-plugin'], { 'save-dev': true });
-
-        this.npmInstall(['autoprefixer'], { 'save-dev': true });
-        this.npmInstall(['file-loader'], { 'save-dev': true });
-        this.npmInstall(['url-loader'], { 'save-dev': true });
-
-        this.npmInstall(['webpack'], { 'save-dev': true });
-        this.npmInstall(['webpack-bundle-analyzer'], { 'save-dev': true });
-        this.npmInstall(['webpack-dev-middleware'], { 'save-dev': true });
-        this.npmInstall(['webpack-hot-middleware'], { 'save-dev': true });
-        this.npmInstall(['webpack-md5-hash'], { 'save-dev': true });
-        this.npmInstall(['html-webpack-plugin'], { 'save-dev': true });
-
-
-        this.npmInstall(['browser-sync'], { 'save-dev': true });
-        this.npmInstall(['connect-history-api-fallback'], { 'save-dev': true });
-
-
-        this.npmInstall(['ptz-core-domain'], { 'save': true });
-        this.npmInstall(['ptz-user-domain'], { 'save': true });
-
-        this.npmInstall(['classnames'], { 'save': true });
-        this.npmInstall(['react'], { 'save': true });
-        this.npmInstall(['react-dom'], { 'save': true });
-        this.npmInstall(['react-hot-loader'], { 'save': true });
-        this.npmInstall(['react-router'], { 'save': true });
-        this.npmInstall(['react-relay'], { 'save': true });
-
-        this.npmInstall(['flux'], { 'save': true });
-        this.npmInstall(['graphql-relay'], { 'save': true });
     }
 
     //end - Called last, cleanup, say good bye, etc
     end() {
-        this.log('end');
     }
 };

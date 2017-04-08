@@ -13,15 +13,15 @@ Yeoman generator to create polutz domain modules.
 [en-us](https://github.com/polutz/generator-ptz-app/blob/master/docs/contribute.md)
 
 ## Install
-You can remove 'yo typings' if you already have them installed
+You can remove 'yo' if you already have Yeoman installed
 ```
-    npm install -g generator-ptz-react yo typings
+    npm install -g generator-ptz-react yo
 ```
 
 ## Create your project
 Go to your project folder and run:
 ```    
-    yo ptz-react && typings install
+    yo ptz-react
 ```
 
 ## Create React Stateless Functional Components
