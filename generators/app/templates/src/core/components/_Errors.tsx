@@ -1,7 +1,11 @@
 import React from 'react';
+import { Component } from 'react';
+import { IComponent } from './IComponent';
 
-const Errors = ({ errors }) => {
-    const errorsList = errors 
+type IErrorsComponent = ({ errors }) => void;
+
+const Errors: IComponent<any> & IErrorsComponent = ({ errors }) => {
+    const errorsList = errors
         ? errors.map(error => <li key={error}>{error}</li>)
         : [];
 
@@ -17,4 +21,3 @@ Errors.propTypes = {
 };
 
 export default Errors;
-

@@ -146,6 +146,9 @@ module.exports = class extends Generator {
 
 
         // Core - DEGING
+        this.fs.copy(this.templatePath('src/core/components/_IComponent.d.ts'),
+            this.destinationPath('src/core/components/IComponent.d.ts'));
+
         this.fs.copy(this.templatePath('src/core/components/_Errors.tsx'),
             this.destinationPath('src/core/components/Errors.tsx'));
 
