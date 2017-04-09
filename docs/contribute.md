@@ -47,12 +47,12 @@ and it will always points to this directory
     mkdir ptz-react-test && cd ptz-react-test 
 ```
 
-### Clean test project folder
-```
-    cd .. && rm -r ptz-react-test && mkdir ptz-react-test && cd ptz-react-test
-```
-
 ### Run Yeoman
 ```
     yo ptz-react
+```
+
+### Clean test project folder
+```
+    find . -path ./.git -prune -o -exec rm -rf {} \; 2> /dev/null
 ```

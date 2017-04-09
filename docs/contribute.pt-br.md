@@ -47,12 +47,12 @@ and it will always points to this directory
     mkdir ptz-react-test && cd ptz-react-test 
 ```
 
-### Limpar pasta do projeto teste
-```
-    cd .. && rm -r ptz-react-test && mkdir ptz-react-test && cd ptz-react-test
-```
-
 ### Criar base do projeto com Yeoman
 ```
     yo ptz-react
+```
+
+### Limpar pasta do projeto teste
+```
+    find . -path ./.git -prune -o -exec rm -rf {} \; 2> /dev/null
 ```
