@@ -36,7 +36,7 @@ module.exports = class extends Generator {
                 "test:watch": "npm run test -- --watch",
                 "open:src": "npm run js && babel-node tools/srcServer.js",
 
-                //"start2": "npm-run-all --parallel test:watch open:src",
+                "mocha": "mocha ./dist/**/*.js --require babel-polyfill --compilers js:babel-register",
                 "front": "npm run js && webpack",
                 "start": "npm run js && webpack && babel-node --presets es2015 dist/simpleServer.js"
             },
