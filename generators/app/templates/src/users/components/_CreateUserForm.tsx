@@ -4,10 +4,23 @@ import Errors from '../../core/components/Errors';
 import TextInput from '../../core/components/TextInput';
 import PropTypes from 'prop-types';
 
+interface ReactRef {
+    value(): string;
+}
+
+interface IUserRefs {
+    displayName?: ReactRef;
+    email?: ReactRef;
+    password?: ReactRef;
+    userName?: ReactRef;
+}
+
 export default class CreateUserForm extends React.Component<any, any>{
     static propTypes = {
         createUser: PropTypes.func
     }
+
+    userArgs: IUserRefs = {};
 
     private createUserCallBack = (user: IUser) => {
         console.log('createUserCallBack', user);
@@ -20,10 +33,10 @@ export default class CreateUserForm extends React.Component<any, any>{
         console.log('createUserSubmit e', e);
 
         const userArgs: IUserArgs = {
-            displayName: this.refs.displayName['value'](),
-            email: this.refs.email['value'](),
-            password: this.refs.password['value'](),
-            userName: this.refs.userName['value']()
+            displayName: this.userArgs.displayName.value(),
+            email: this.userArgs.email.value(),
+            password: this.userArgs.password.value(),
+            userName: this.userArgs.userName.value()
         };
 
         console.log('userArgs', userArgs);
@@ -41,23 +54,23 @@ export default class CreateUserForm extends React.Component<any, any>{
                         <legend>Create User</legend>
                         <TextInput
                             label="Display Name"
-                            ref={(f) => (this.refs.displayName = f)}
+                            ref={(f) => (this.userArgs.displayName = f)}
                             possibleErrors={User.displayNameErrors}
                             errors={errors} />
                         <TextInput
                             label="User Name"
-                            ref={(f) => (this.refs.userName = f)}
+                            ref={(f) => (this.userArgs.userName = f)}
                             possibleErrors={User.userNameErrors}
                             errors={errors} />
                         <TextInput
                             label="E-mail"
-                            ref={(f) => (this.refs.email = f)}
+                            ref={(f) => (this.userArgs.email = f)}
                             possibleErrors={User.emailErrors}
                             errors={errors} />
                         <TextInput
                             label="Password"
                             type="password"
-                            ref={(f) => (this.refs.password = f)}
+                            ref={(f) => (this.userArgs.password = f)}
                             possibleErrors={User.passwordErrors}
                             errors={errors} />
                         <button type="submit">Create User</button>

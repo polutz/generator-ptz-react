@@ -3,7 +3,7 @@ var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
-describe('ptz-domain:app', function () {
+describe('yo ptz-react', function () {
     describe('default', function () {
         before(function (done) {
             helpers.run(path.join(__dirname, '../app'))
@@ -21,8 +21,6 @@ describe('ptz-domain:app', function () {
                 '.gitignore',
                 '.travis.yml',
                 '.babelrc',
-                'src/index.ts',
-                'src/errors.ts',
 
                 'src/graphqlServerUrl.ts'
             ]);
@@ -38,10 +36,8 @@ describe('ptz-domain:app', function () {
         it('creates front files', function () {
             assert.file([                
                 'babelRelayPlugin.js',
-                'webpack.config.js',
                 'webpack.config.dev.js',
                 'webpack.config.prod.js',
-                'src/simpleServer.ts',
                 'src/index.ejs',
                 'dist/index.html',
                 'src/app.tsx',

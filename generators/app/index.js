@@ -28,17 +28,13 @@ module.exports = class extends Generator {
         const currentPkg = this.fs.readJSON(this.destinationPath('package.json'), {});
 
         const pkg = _.merge({
-            //"description": "this is a Polutz React App.",
+            description: "this is a Polutz React App.",
             scripts: {
-                "js": "rimraf dist && tsc",
-                "start-message": "babel-node tools/startMessage.js",
-                "start": "npm-run-all --parallel test:watch open:src",
+                "js": "rimraf dist && tsc", // Babel needs to run with webpack
+                "start": "npm run open:src",
                 "test:watch": "npm run test -- --watch",
                 "open:src": "npm run js && babel-node tools/srcServer.js",
-
-                "mocha": "mocha ./dist/**/*.js --require babel-polyfill --compilers js:babel-register",
-                "front": "npm run js && webpack",
-                "start": "npm run js && webpack && babel-node --presets es2015 dist/simpleServer.js"
+                "mocha": "mocha ./dist/**/*.js --require babel-polyfill --compilers js:babel-register"
             },
             devDependencies: {
                 "@types/react": "^15.0.21",
@@ -132,9 +128,6 @@ module.exports = class extends Generator {
         this.fs.copy(this.templatePath('_babelRelayPlugin.js'),
             this.destinationPath('babelRelayPlugin.js'));
 
-        this.fs.copy(this.templatePath('_webpack.config.js'),
-            this.destinationPath('webpack.config.js'));
-
         this.fs.copy(this.templatePath('_webpack.config.dev.js'),
             this.destinationPath('webpack.config.dev.js'));
 
@@ -152,9 +145,6 @@ module.exports = class extends Generator {
 
 
         // src - DEGING
-        this.fs.copy(this.templatePath('src/_simpleServer.ts'),
-            this.destinationPath('src/simpleServer.ts'));
-
         this.fs.copy(this.templatePath('src/_index.ejs'),
             this.destinationPath('src/index.ejs'));
 
