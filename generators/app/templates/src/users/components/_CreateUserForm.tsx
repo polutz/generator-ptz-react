@@ -2,10 +2,11 @@ import React from 'react';
 import { IUser, IUserArgs, User } from 'ptz-user-domain';
 import Errors from '../../core/components/Errors';
 import TextInput from '../../core/components/TextInput';
+import PropTypes from 'prop-types';
 
 export default class CreateUserForm extends React.Component<any, any>{
     static propTypes = {
-        createUser: React.PropTypes.func
+        createUser: PropTypes.func
     }
 
     private createUserCallBack = (user: IUser) => {

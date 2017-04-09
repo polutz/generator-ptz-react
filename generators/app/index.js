@@ -73,7 +73,8 @@ module.exports = class extends Generator {
                 "react-dom": "^15.4.2",
                 "react-hot-loader": "^1.3.1",
                 "react-relay": "^0.10.0",
-                "react-router": "^4.0.0"
+                "react-router": "^4.0.0",
+                "prop-types": "^15.5.4"
             }
         }, currentPkg);
 

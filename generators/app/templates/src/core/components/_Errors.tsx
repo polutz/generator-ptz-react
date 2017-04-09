@@ -1,5 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 interface IErrorsProps {
     errors: string[];
@@ -18,7 +19,7 @@ const Errors: React.StatelessComponent<IErrorsProps> = ({ errors }) => {
 };
 
 Errors.propTypes = {
-    errors: React.PropTypes.array
+    errors: PropTypes.array
 };
 
 export default Errors;
