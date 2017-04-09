@@ -54,5 +54,5 @@ and it will always points to this directory
 
 ### Clean test project folder
 ```
-    find . -path ./.git -prune -o -exec rm -rf {} \; 2> /dev/null
+    find . -path ./.git -prune -o \( \! -path ./.yo-rc.json \) -exec rm -rf {} \; 2> /dev/null
 ```

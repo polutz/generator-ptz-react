@@ -20,7 +20,7 @@ describe('ptz-domain:app', function () {
                 'tsconfig.json',
                 '.gitignore',
                 '.travis.yml',
-                
+                '.babelrc',
                 'src/index.ts',
                 'src/errors.ts',
 

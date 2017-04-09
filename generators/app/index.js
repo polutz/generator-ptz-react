@@ -30,10 +30,11 @@ module.exports = class extends Generator {
         const pkg = _.merge({
             //"description": "this is a Polutz React App.",
             scripts: {
+                "js": "rimraf dist && tsc",
                 "start-message": "babel-node tools/startMessage.js",
                 "start": "npm-run-all --parallel test:watch open:src",
                 "test:watch": "npm run test -- --watch",
-                "open:src": "babel-node tools/srcServer.js",
+                "open:src": "npm run js && babel-node tools/srcServer.js",
 
                 //"start2": "npm-run-all --parallel test:watch open:src",
                 "front": "npm run js && webpack",
@@ -98,6 +99,30 @@ module.exports = class extends Generator {
         /// tsconfig.json - end
         ////////////////////////////////////////////////////////////////////
 
+
+
+
+        //////////////////////////////////////////////////////////////
+        /// .babelrc - begin
+
+        const currentBabelrc = this.fs.readJSON(this.destinationPath('.babelrc'), {});
+
+        const newBabelrc = _.merge(
+            {
+                "presets": [
+                    "es2015",
+                    "react"
+                ],
+                "plugins": [
+                    "./babelRelayPlugin"
+                ]
+            }, currentBabelrc);
+
+        // Let's extend package.json so we're not overwriting user previous fields
+        this.fs.writeJSON(this.destinationPath('.babelrc'), newBabelrc);
+
+        /// .babelrc - end
+        //////////////////////////////////////////////////////////////
 
         this.fs.copyTpl(
             this.templatePath('_README.md'),
@@ -182,6 +207,9 @@ module.exports = class extends Generator {
 
     //default - If the method name doesn't match a priority, it will be pushed to this group.
     default() {
+        this.options.ptz.dontCreateIndexTs = true;
+        this.options.ptz.dontCreateErrorsTs = true;
+
         this.composeWith(require.resolve('generator-ptz/generators/app'), {
             isComposing: true,
             skipInstall: this.options.skipInstall,
