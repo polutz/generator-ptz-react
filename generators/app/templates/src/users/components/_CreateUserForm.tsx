@@ -5,7 +5,7 @@ import TextInput from '../../core/components/TextInput';
 import PropTypes from 'prop-types';
 
 interface ReactRef {
-    value(): string;
+    value(val?): string;
 }
 
 interface IUserRefs {
@@ -17,15 +17,11 @@ interface IUserRefs {
 
 export default class CreateUserForm extends React.Component<any, any>{
     static propTypes = {
-        createUser: PropTypes.func
+        createUser: PropTypes.func.isRequired,
+        user: PropTypes.object.isRequired
     }
 
-    userArgs: IUserRefs = {};
-
-    private createUserCallBack = (user: IUser) => {
-        console.log('createUserCallBack', user);
-        this.setState({ user });
-    }
+    userFormRef: IUserRefs = {};
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -33,19 +29,35 @@ export default class CreateUserForm extends React.Component<any, any>{
         console.log('createUserSubmit e', e);
 
         const userArgs: IUserArgs = {
-            displayName: this.userArgs.displayName.value(),
-            email: this.userArgs.email.value(),
-            password: this.userArgs.password.value(),
-            userName: this.userArgs.userName.value()
+            id: this.props.user.id,
+            displayName: this.userFormRef.displayName.value(),
+            email: this.userFormRef.email.value(),
+            password: this.userFormRef.password.value(),
+            userName: this.userFormRef.userName.value()
         };
 
         console.log('userArgs', userArgs);
 
-        this.props.createUser(userArgs, this.createUserCallBack);
+        this.setUserForm(null);
+
+        this.props.createUser(userArgs);
+    }
+
+    private setUserForm(user?: IUser) {
+        this.userFormRef.displayName.value(user ? user.displayName : '');
+        this.userFormRef.email.value(user ? user.email : '');
+        this.userFormRef.password.value(user ? user.password : '');
+        this.userFormRef.userName.value(user ? user.userName : '');
+    }
+
+    componentDidMount() {
+        console.log('componentDidMount');
+        this.setUserForm(this.props.user);
     }
 
     render() {
-        const errors = this.state && this.state.user ? this.state.user.errors : [];
+        const user = this.props.user;
+        console.log('CreateUserForm props.user', user);
 
         return (
             <section>
@@ -54,27 +66,31 @@ export default class CreateUserForm extends React.Component<any, any>{
                         <legend>Create User</legend>
                         <TextInput
                             label="Display Name"
-                            ref={(f) => (this.userArgs.displayName = f)}
+                            defaultValue={user.displayName}
+                            ref={(input) => (this.userFormRef.displayName = input)}
                             possibleErrors={User.displayNameErrors}
-                            errors={errors} />
+                            errors={user.errors} />
                         <TextInput
                             label="User Name"
-                            ref={(f) => (this.userArgs.userName = f)}
+                            defaultValue={user.userName}
+                            ref={(input) => (this.userFormRef.userName = input)}
                             possibleErrors={User.userNameErrors}
-                            errors={errors} />
+                            errors={user.errors} />
                         <TextInput
                             label="E-mail"
-                            ref={(f) => (this.userArgs.email = f)}
+                            defaultValue={user.email}
+                            ref={(input) => (this.userFormRef.email = input)}
                             possibleErrors={User.emailErrors}
-                            errors={errors} />
+                            errors={user.errors} />
                         <TextInput
                             label="Password"
                             type="password"
-                            ref={(f) => (this.userArgs.password = f)}
+                            defaultValue={user.password}
+                            ref={(input) => (this.userFormRef.password = input)}
                             possibleErrors={User.passwordErrors}
-                            errors={errors} />
+                            errors={user.errors} />
                         <button type="submit">Create User</button>
-                        <Errors errors={errors} />
+                        <Errors errors={user.errors} />
                     </fieldset>
                 </form>
             </section>);

@@ -33,7 +33,7 @@ module.exports = class extends Generator {
                 "js": "rimraf dist && tsc", // Babel needs to run with webpack
                 "start": "npm run open:src",
                 "test:watch": "npm run test -- --watch",
-                "open:src": "npm run js && babel-node tools/srcServer.js",
+                "open:src": "npm run pretest && babel-node tools/srcServer.js",
                 "mocha": "mocha ./dist/**/*.js --require babel-polyfill --compilers js:babel-register"
             },
             devDependencies: {

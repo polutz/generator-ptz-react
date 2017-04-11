@@ -9,6 +9,7 @@ interface ITextInputProps {
     label: string
     placeholder?: string;
     type?: string;
+    defaultValue?: any;
 }
 
 class TextInput extends React.Component<ITextInputProps, any> { // eslint-disable-line react/prefer-stateless-function
@@ -16,12 +17,15 @@ class TextInput extends React.Component<ITextInputProps, any> { // eslint-disabl
     field: HTMLInputElement;
     props: ITextInputProps;
 
-    value() {
+    value(val) {
+        if (val != null)
+            this.field.value = val;
+
         return this.field.value;
     }
 
     render() {
-        var { possibleErrors, errors, label, placeholder, type } = this.props;
+        var { defaultValue, possibleErrors, errors, label, placeholder, type } = this.props;
 
         const localErrors = errors && errors.length > 0 && possibleErrors && possibleErrors.length > 0
             ? errors.filter(error => possibleErrors.indexOf(error) >= 0)
@@ -36,6 +40,7 @@ class TextInput extends React.Component<ITextInputProps, any> { // eslint-disabl
             <div className={classNames('form-group', { 'has-error': hasError })}>
                 <label>{label}</label>
                 <input
+                    defaultValue={defaultValue}
                     type={type}
                     className="form-control"
                     placeholder={placeholder}

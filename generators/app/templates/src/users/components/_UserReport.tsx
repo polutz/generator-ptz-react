@@ -9,6 +9,12 @@ import UserComponent from './User';
 import CreateUserForm from './CreateUserForm';
 
 class UserReport extends React.Component<any, any>{
+
+    constructor(props) {
+        super(props);
+        this.state = { user: {} };
+    }
+
     setLimit = (e) => {
         var newLimit = Number(e.target.value);
         this.props.relay.setVariables({ limit: newLimit });
@@ -16,47 +22,52 @@ class UserReport extends React.Component<any, any>{
         console.log('relay', this.props.relay);
     }
 
-    private createUserCallBacks(cb) {
-        return {
-            onFailure: transaction => {
-                console.log('onFailure response', transaction);
-                cb(transaction);
-            },
-            onSuccess: response => {
-                console.log('onSuccess response', response);
-                console.log('user response', response.saveUser.userEdge.node);
-                cb(response.saveUser.userEdge.node);
-            }
-        }
+    private getNewUser() {
+        return new User({
+            displayName: '',
+            email: '',
+            userName: ''
+        });
     }
 
-    createUser = (userArgs, cb) => {
+    createUser = (userArgs) => {
         const user = new User(userArgs);
+        this.setState({ user });
+        console.log('UserReport createUser() user', user);
 
-        console.log('user', user);
+        if (!user.isValid())
+            return;
 
-        if (user.isValid())
-            Relay.Store.commitUpdate(
-                new SaveUserMutation({
-                    user,
-                    store: this.props.store
-                }),
-                this.createUserCallBacks(cb)
-            );
-        else
-            cb(user);
+        Relay.Store.commitUpdate(
+            new SaveUserMutation({
+                user,
+                store: this.props.store
+            }),
+            {
+                onFailure: transaction => {
+                    console.log('onFailure response', transaction);
+                },
+                onSuccess: response => {
+                    console.log('onSuccess response', response);
+                    console.log('user response', response.saveUser.userEdge.node);
+                    const user = new User(response.saveUser.userEdge.node);
+                    this.setState({ user: user.isValid() ? {} : user });
+                }
+            }
+        );
     }
-
 
     render() {
         var content = this.props.store.userConnection.edges.map(edge => {
             return <UserComponent key={edge.node.id} user={edge.node} />;
         });
 
+        console.log('rendering UserReport user:', this.state.user);
+
         return (
             <section>
-                <h1>Users</h1>
-                <CreateUserForm createUser={this.createUser} />
+                <h1>Users2</h1>
+                <CreateUserForm createUser={this.createUser} user={this.state.user} />
                 <label htmlFor='pagination-limit'>Showing</label>
                 <select id='pagination-limit' onChange={this.setLimit}
                     defaultValue={this.props.relay.variables.limit}>
