@@ -16,7 +16,30 @@ module.exports = class extends Generator {
 
     //prompting - Where you prompt users for options (where you'd call this.prompt())
     prompting() {
-        return defaultPrompting(this);
+        var askFor = [{
+            type: 'input',
+            name: 'graphqlServerUrl',
+            message: 'GraphQL Server Url',
+            default: 'http://localhost:3011/graphql',
+            store: true
+        },
+        {
+            type: 'input',
+            name: 'graphqlSchemaUrl',
+            message: 'GraphQL Schema Url',
+            default: 'http://localhost:3011/public/schema.json',
+            store: true
+        }];
+
+        var getAnswers = (answers) => {
+            if (!this.options.ptz)
+                this.options.ptz = {};
+
+            this.options.ptz.graphqlServerUrl = answers.graphqlServerUrl;
+            this.options.ptz.graphqlSchemaUrl = answers.graphqlSchemaUrl;
+        };
+
+        return defaultPrompting(this, askFor, getAnswers);
     }
 
     //    configuring - Saving configurations and configure the project (creating.editorconfig files and other metadata files)
@@ -31,10 +54,13 @@ module.exports = class extends Generator {
             description: "this is a Polutz React App.",
             scripts: {
                 "js": "rimraf dist && tsc", // Babel needs to run with webpack
-                "start": "npm run open:src",
+                "mocha": "mocha ./dist/**/*.js --require babel-polyfill --compilers js:babel-register",
+                "pretest": "npm-run-all --parallel download-graphql-schema js lint",
+                "prestart": "npm run pretest",
+                "start": "npm run open:src",                
                 "test:watch": "npm run test -- --watch",
-                "open:src": "npm run pretest && babel-node tools/srcServer.js",
-                "mocha": "mocha ./dist/**/*.js --require babel-polyfill --compilers js:babel-register"
+                "open:src": "babel-node tools/srcServer.js",
+                "download-graphql-schema": "node tools/downloadGraphqlSchema.js"
             },
             devDependencies: {
                 "@types/react": "^15.0.21",
@@ -141,6 +167,9 @@ module.exports = class extends Generator {
 
         this.fs.copy(this.templatePath('tools/_srcServer.js'),
             this.destinationPath('tools/srcServer.js'));
+
+        this.fs.copy(this.templatePath('tools/_downloadGraphqlSchema.js'),
+            this.destinationPath('tools/downloadGraphqlSchema.js'));
         // Tools - END
 
 
@@ -158,8 +187,10 @@ module.exports = class extends Generator {
         this.fs.copy(this.templatePath('src/_AppDispatcher.ts'),
             this.destinationPath('src/AppDispatcher.ts'));
 
-        this.fs.copy(this.templatePath('src/_graphqlServerUrl.ts'),
-            this.destinationPath('src/graphqlServerUrl.ts'));
+        this.fs.copyTpl(
+            this.templatePath('src/_graphqlServerUrl.ts'),
+            this.destinationPath('src/graphqlServerUrl.ts'),
+            this.options.ptz);
         // src - END
 
 

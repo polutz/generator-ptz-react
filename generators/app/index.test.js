@@ -29,7 +29,8 @@ describe('yo ptz-react', function () {
         it('creates tools files', function () {
             assert.file([                
                 'tools/srcServer.js',
-                'tools/webpack-public-path.js'
+                'tools/webpack-public-path.js',
+                'tools/downloadGraphqlSchema.js'
             ]);
         });
 
