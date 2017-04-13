@@ -37,7 +37,7 @@ class SaveUserMutation extends Relay.Mutation<SaveUserMutationProps, any>{
             connectionName: 'userConnection',
             edgeName: 'userEdge',
             rangeBehaviors: {
-                '': 'append'
+                '': 'prepend'
             }
         }];
     }

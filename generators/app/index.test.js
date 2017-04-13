@@ -48,6 +48,7 @@ describe('yo ptz-react', function () {
 
         it('creates core files', function () {
             assert.file([
+                'src/core/components/IReactRef.d.ts',
                 'src/core/components/Errors.tsx',
                 'src/core/components/TextInput.tsx'
             ]);

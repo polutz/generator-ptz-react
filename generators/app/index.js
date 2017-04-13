@@ -57,7 +57,7 @@ module.exports = class extends Generator {
                 "mocha": "mocha ./dist/**/*.js --require babel-polyfill --compilers js:babel-register",
                 "pretest": "npm-run-all --parallel download-graphql-schema js lint",
                 "prestart": "npm run pretest",
-                "start": "npm run open:src",                
+                "start": "npm run open:src",
                 "test:watch": "npm run test -- --watch",
                 "open:src": "babel-node tools/srcServer.js",
                 "download-graphql-schema": "node tools/downloadGraphqlSchema.js"
@@ -194,7 +194,10 @@ module.exports = class extends Generator {
         // src - END
 
 
-        // Core - DEGING
+        // Core - DEGING        
+        this.fs.copy(this.templatePath('src/core/components/_IReactRef.d.ts'),
+            this.destinationPath('src/core/components/IReactRef.d.ts'));
+
         this.fs.copy(this.templatePath('src/core/components/_Errors.tsx'),
             this.destinationPath('src/core/components/Errors.tsx'));
 

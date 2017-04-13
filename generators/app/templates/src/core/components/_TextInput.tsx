@@ -1,6 +1,7 @@
 import React from 'react';
 import Errors from './Errors';
 import classNames from 'classnames';
+import { IReactRef } from './IReactRef';
 
 interface ITextInputProps {
     onChange?: () => any;
@@ -12,16 +13,20 @@ interface ITextInputProps {
     defaultValue?: any;
 }
 
-class TextInput extends React.Component<ITextInputProps, any> { // eslint-disable-line react/prefer-stateless-function
+class TextInput extends React.Component<ITextInputProps, any> implements IReactRef { // eslint-disable-line react/prefer-stateless-function
 
     field: HTMLInputElement;
     props: ITextInputProps;
 
-    value(val) {
-        if (val != null)
-            this.field.value = val;
-
+    getValue(): string {
         return this.field.value;
+    }
+
+    setValue(val: any): void {
+        if (val == null)
+            val = '';
+            
+        this.field.value = val;
     }
 
     render() {

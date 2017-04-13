@@ -3,16 +3,13 @@ import { IUser, IUserArgs, User } from 'ptz-user-domain';
 import Errors from '../../core/components/Errors';
 import TextInput from '../../core/components/TextInput';
 import PropTypes from 'prop-types';
-
-interface ReactRef {
-    value(val?): string;
-}
+import { IReactRef } from '../../core/components/IReactRef';
 
 interface IUserRefs {
-    displayName?: ReactRef;
-    email?: ReactRef;
-    password?: ReactRef;
-    userName?: ReactRef;
+    displayName?: IReactRef;
+    email?: IReactRef;
+    password?: IReactRef;
+    userName?: IReactRef;
 }
 
 export default class CreateUserForm extends React.Component<any, any>{
@@ -30,24 +27,26 @@ export default class CreateUserForm extends React.Component<any, any>{
 
         const userArgs: IUserArgs = {
             id: this.props.user.id,
-            displayName: this.userFormRef.displayName.value(),
-            email: this.userFormRef.email.value(),
-            password: this.userFormRef.password.value(),
-            userName: this.userFormRef.userName.value()
+            displayName: this.userFormRef.displayName.getValue(),
+            email: this.userFormRef.email.getValue(),
+            password: this.userFormRef.password.getValue(),
+            userName: this.userFormRef.userName.getValue()
         };
 
         console.log('userArgs', userArgs);
-
-        this.setUserForm(null);
 
         this.props.createUser(userArgs);
     }
 
     private setUserForm(user?: IUser) {
-        this.userFormRef.displayName.value(user ? user.displayName : '');
-        this.userFormRef.email.value(user ? user.email : '');
-        this.userFormRef.password.value(user ? user.password : '');
-        this.userFormRef.userName.value(user ? user.userName : '');
+        if (!this.userFormRef || !this.userFormRef.displayName)
+            return;
+
+        console.log('userFormRef', this.userFormRef);
+        this.userFormRef.displayName.setValue(user ? user.displayName : '');
+        this.userFormRef.email.setValue(user ? user.email : '');
+        this.userFormRef.password.setValue(user ? user.password : '');
+        this.userFormRef.userName.setValue(user ? user.userName : '');
     }
 
     componentDidMount() {
@@ -58,6 +57,8 @@ export default class CreateUserForm extends React.Component<any, any>{
     render() {
         const user = this.props.user;
         console.log('CreateUserForm props.user', user);
+
+        this.setUserForm(this.props.user);
 
         return (
             <section>
