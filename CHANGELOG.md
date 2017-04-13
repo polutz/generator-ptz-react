@@ -1,8 +1,9 @@
 ## master
 
 
-## 1. (..., 2017)
+## 1.1.0 (April 13, 2017)
 
+* Download graphqlSchema.json
 * Remove simple server.
 * Fix browsersync.
 
