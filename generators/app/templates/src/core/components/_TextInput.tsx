@@ -1,18 +1,19 @@
+import classNames from 'classnames';
 import React from 'react';
 import Errors from './Errors';
-import classNames from 'classnames';
 import { IReactRef } from './IReactRef';
 
 interface ITextInputProps {
     onChange?: () => any;
     possibleErrors?: string[];
     errors?: string[];
-    label: string
+    label: string;
     placeholder?: string;
     type?: string;
     defaultValue?: any;
 }
 
+// tslint:disable-next-line:max-line-length
 class TextInput extends React.Component<ITextInputProps, any> implements IReactRef { // eslint-disable-line react/prefer-stateless-function
 
     field: HTMLInputElement;
@@ -25,12 +26,13 @@ class TextInput extends React.Component<ITextInputProps, any> implements IReactR
     setValue(val: any): void {
         if (val == null)
             val = '';
-            
+
         this.field.value = val;
     }
 
     render() {
-        var { defaultValue, possibleErrors, errors, label, placeholder, type } = this.props;
+        const { defaultValue, possibleErrors, errors, label } = this.props;
+        var { placeholder, type } = this.props;
 
         const localErrors = errors && errors.length > 0 && possibleErrors && possibleErrors.length > 0
             ? errors.filter(error => possibleErrors.indexOf(error) >= 0)

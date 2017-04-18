@@ -1,6 +1,6 @@
+import { IUser } from 'ptz-user-domain';
 import React from 'react';
 import Relay from 'react-relay';
-import { IUser } from 'ptz-user-domain';
 
 interface IUserProps {
     user: IUser;
@@ -8,7 +8,7 @@ interface IUserProps {
 
 class User extends React.Component<IUserProps, any> {
     render() {
-        let { user } = this.props;
+        const { user } = this.props;
         return (
             <li>
                 {user.id} <br />

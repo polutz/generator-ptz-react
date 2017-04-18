@@ -3,12 +3,12 @@ import Relay from 'react-relay';
 
 import { IUserArgs, User } from 'ptz-user-domain';
 
-import SaveUserMutation from "../mutations/SaveUserMutation";
+import SaveUserMutation from '../mutations/SaveUserMutation';
 
-import UserComponent from './User';
 import CreateUserForm from './CreateUserForm';
+import UserComponent from './User';
 
-class UserReport extends React.Component<any, any>{
+class UserReport extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
@@ -16,22 +16,14 @@ class UserReport extends React.Component<any, any>{
     }
 
     setLimit = (e) => {
-        var newLimit = Number(e.target.value);
+        const newLimit = Number(e.target.value);
         this.props.relay.setVariables({ limit: newLimit });
         console.log('newLimit', newLimit);
         console.log('relay', this.props.relay);
     }
 
-    private getNewUser() {
-        return new User({
-            displayName: '',
-            email: '',
-            userName: ''
-        });
-    }
-
     createUser = (userArgs) => {
-        const user = new User(userArgs);
+        var user = new User(userArgs);
         this.setState({ user });
         console.log('UserReport createUser() user', user);
 
@@ -41,7 +33,7 @@ class UserReport extends React.Component<any, any>{
         Relay.Store.commitUpdate(
             new SaveUserMutation({
                 user,
-                store: this.props.store
+                viewer: this.props.viewer
             }),
             {
                 onFailure: transaction => {
@@ -50,7 +42,7 @@ class UserReport extends React.Component<any, any>{
                 onSuccess: response => {
                     console.log('onSuccess response', response);
                     console.log('user response', response.saveUser.userEdge.node);
-                    const user = new User(response.saveUser.userEdge.node);
+                    user = new User(response.saveUser.userEdge.node);
                     this.setState({ user: user.isValid() ? {} : user });
                 }
             }
@@ -58,7 +50,7 @@ class UserReport extends React.Component<any, any>{
     }
 
     render() {
-        var content = this.props.store.userConnection.edges.map(edge => {
+        const content = this.props.viewer.userConnection.edges.map(edge => {
             return <UserComponent key={edge.node.id} user={edge.node} />;
         });
 
@@ -68,8 +60,8 @@ class UserReport extends React.Component<any, any>{
             <section>
                 <h1>Users2</h1>
                 <CreateUserForm createUser={this.createUser} user={this.state.user} />
-                <label htmlFor='pagination-limit'>Showing</label>
-                <select id='pagination-limit' onChange={this.setLimit}
+                <label htmlFor="pagination-limit">Showing</label>
+                <select id="pagination-limit" onChange={this.setLimit}
                     defaultValue={this.props.relay.variables.limit}>
                     <option value="10">10</option>
                     <option value="20">20</option>
@@ -79,6 +71,14 @@ class UserReport extends React.Component<any, any>{
                 </ul>
             </section>);
     }
+
+    private getNewUser() {
+        return new User({
+            displayName: '',
+            email: '',
+            userName: ''
+        });
+    }
 }
 
 export default Relay.createContainer(UserReport, {
@@ -86,8 +86,8 @@ export default Relay.createContainer(UserReport, {
         limit: 20
     },
     fragments: {
-        store: () => Relay.QL`
-        fragment on Store{
+        viewer: () => Relay.QL`
+        fragment on Viewer{
             id,
             userConnection(first: $limit){
                 edges{

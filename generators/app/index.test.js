@@ -21,13 +21,12 @@ describe('yo ptz-react', function () {
                 '.gitignore',
                 '.travis.yml',
                 '.babelrc',
-
                 'src/graphqlServerUrl.ts'
             ]);
         });
 
         it('creates tools files', function () {
-            assert.file([                
+            assert.file([
                 'tools/srcServer.js',
                 'tools/webpack-public-path.js',
                 'tools/downloadGraphqlSchema.js'
@@ -35,34 +34,43 @@ describe('yo ptz-react', function () {
         });
 
         it('creates front files', function () {
-            assert.file([                
+            assert.file([
                 'babelRelayPlugin.js',
                 'webpack.config.dev.js',
                 'webpack.config.prod.js',
                 'src/index.ejs',
-                'dist/index.html',
-                'src/app.tsx',
-                'src/AppDispatcher.ts'
+                'src/index.tsx'
             ]);
         });
 
-        it('creates core files', function () {
+        it('creates menus files', function () {
             assert.file([
-                'src/core/components/IReactRef.d.ts',
                 'src/core/components/Errors.tsx',
-                'src/core/components/TextInput.tsx'
+                'src/core/components/Footer.tsx',
+                'src/core/components/Header.tsx',
+                'src/core/components/Home.tsx',
+                'src/core/components/IReactRef.d.ts',
+                'src/core/components/Main.tsx',
+                'src/core/components/TextInput.tsx',
+
+                'src/core/queries/ViewerQueries.ts'
+            ]);
+        });
+
+        it('creates menus files', function () {
+            assert.file([
+                'src/menus/components/Menu.tsx',
+                'src/menus/components/MenuItem.tsx'
             ]);
         });
 
         it('creates users files', function () {
             assert.file([
-                'src/users/userConstants.ts',
-                'src/users/actions/userServerActions.ts',
                 'src/users/components/CreateUserForm.tsx',
                 'src/users/components/User.tsx',
                 'src/users/components/UserReport.tsx',
-                'src/users/mutations/SaveUserMutation.ts',
-                'src/users/stores/UserStore.ts',
+
+                'src/users/mutations/SaveUserMutation.ts'
             ]);
         });
     });

@@ -80,24 +80,29 @@ module.exports = class extends Generator {
                 "file-loader": "^0.11.1",
                 "html-webpack-plugin": "^2.28.0",
                 "url-loader": "^0.5.8",
-                "webpack": "^2.3.3",
-                "webpack-bundle-analyzer": "^2.3.1",
+                "webpack": "~2.3.3",
+                "webpack-bundle-analyzer": "~2.3.1",
                 "webpack-dev-middleware": "^1.10.1",
                 "webpack-hot-middleware": "^2.18.0",
-                "webpack-md5-hash": "0.0.5"
+                "webpack-md5-hash": "0.0.5",
+                "@types/react-router": "^4.0.4"
             },
             dependencies: {
                 "classnames": "^2.2.5",
-                "flux": "^3.1.2",
+                "fs": "^0.0.1-security",
                 "graphql-relay": "^0.5.1",
                 "ptz-core-domain": "^1.2.2",
+                "ptz-menu-domain": "^1.0.0",
                 "ptz-user-domain": "^1.2.5",
                 "react": "^15.4.2",
                 "react-dom": "^15.4.2",
                 "react-hot-loader": "^1.3.1",
                 "react-relay": "^0.10.0",
                 "react-router": "^4.0.0",
-                "prop-types": "^15.5.4"
+                "prop-types": "^15.5.4",
+                "react-router": "^2.5.1",
+                "react-router-relay": "^0.13.7",
+                "request": "^2.81.0"
             }
         }, currentPkg);
 
@@ -177,15 +182,11 @@ module.exports = class extends Generator {
         this.fs.copy(this.templatePath('src/_index.ejs'),
             this.destinationPath('src/index.ejs'));
 
-        // Not permanent
-        this.fs.copy(this.templatePath('dist/_index.html'),
-            this.destinationPath('dist/index.html'));
+        this.fs.copy(this.templatePath('src/_index.tsx'),
+            this.destinationPath('src/index.tsx'));
 
-        this.fs.copy(this.templatePath('src/_app.tsx'),
-            this.destinationPath('src/app.tsx'));
-
-        this.fs.copy(this.templatePath('src/_AppDispatcher.ts'),
-            this.destinationPath('src/AppDispatcher.ts'));
+        this.fs.copy(this.templatePath('src/_routes.tsx'),
+            this.destinationPath('src/routes.tsx'));
 
         this.fs.copyTpl(
             this.templatePath('src/_graphqlServerUrl.ts'),
@@ -203,15 +204,24 @@ module.exports = class extends Generator {
 
         this.fs.copy(this.templatePath('src/core/components/_TextInput.tsx'),
             this.destinationPath('src/core/components/TextInput.tsx'));
+
+        this.fs.copy(this.templatePath('src/core/components/_Footer.tsx'),
+            this.destinationPath('src/core/components/Footer.tsx'));
+
+        this.fs.copy(this.templatePath('src/core/components/_Header.tsx'),
+            this.destinationPath('src/core/components/Header.tsx'));
+
+        this.fs.copy(this.templatePath('src/core/components/_Home.tsx'),
+            this.destinationPath('src/core/components/Home.tsx'));
+
+        this.fs.copy(this.templatePath('src/core/components/_Main.tsx'),
+            this.destinationPath('src/core/components/Main.tsx'));
+
+        this.fs.copy(this.templatePath('src/core/queries/_ViewerQueries.ts'),
+            this.destinationPath('src/core/queries/ViewerQueries.ts'));
         // Core - END
 
         // Users - BEGIN
-        this.fs.copy(this.templatePath('src/users/_userConstants.ts'),
-            this.destinationPath('src/users/userConstants.ts'));
-
-        this.fs.copy(this.templatePath('src/users/actions/_userServerActions.ts'),
-            this.destinationPath('src/users/actions/userServerActions.ts'));
-
         this.fs.copy(this.templatePath('src/users/components/_CreateUserForm.tsx'),
             this.destinationPath('src/users/components/CreateUserForm.tsx'));
 
@@ -223,10 +233,15 @@ module.exports = class extends Generator {
 
         this.fs.copy(this.templatePath('src/users/mutations/_SaveUserMutation.ts'),
             this.destinationPath('src/users/mutations/SaveUserMutation.ts'));
-
-        this.fs.copy(this.templatePath('src/users/stores/_UserStore.ts'),
-            this.destinationPath('src/users/stores/UserStore.ts'));
         // Users - END
+
+        // menus - BEGIN
+        this.fs.copy(this.templatePath('src/menus/components/_Menu.tsx'),
+            this.destinationPath('src/menus/components/Menu.tsx'));
+
+        this.fs.copy(this.templatePath('src/menus/components/_MenuItem.tsx'),
+            this.destinationPath('src/menus/components/MenuItem.tsx'));
+        // menus - END
     }
 
     //default - If the method name doesn't match a priority, it will be pushed to this group.

@@ -1,9 +1,9 @@
-import React from 'react';
-import { IUser, IUserArgs, User } from 'ptz-user-domain';
-import Errors from '../../core/components/Errors';
-import TextInput from '../../core/components/TextInput';
 import PropTypes from 'prop-types';
+import { IUser, IUserArgs, User } from 'ptz-user-domain';
+import React from 'react';
+import Errors from '../../core/components/Errors';
 import { IReactRef } from '../../core/components/IReactRef';
+import TextInput from '../../core/components/TextInput';
 
 interface IUserRefs {
     displayName?: IReactRef;
@@ -12,11 +12,11 @@ interface IUserRefs {
     userName?: IReactRef;
 }
 
-export default class CreateUserForm extends React.Component<any, any>{
+export default class CreateUserForm extends React.Component<any, any> {
     static propTypes = {
         createUser: PropTypes.func.isRequired,
         user: PropTypes.object.isRequired
-    }
+    };
 
     userFormRef: IUserRefs = {};
 
@@ -36,17 +36,6 @@ export default class CreateUserForm extends React.Component<any, any>{
         console.log('userArgs', userArgs);
 
         this.props.createUser(userArgs);
-    }
-
-    private setUserForm(user?: IUser) {
-        if (!this.userFormRef || !this.userFormRef.displayName)
-            return;
-
-        console.log('userFormRef', this.userFormRef);
-        this.userFormRef.displayName.setValue(user ? user.displayName : '');
-        this.userFormRef.email.setValue(user ? user.email : '');
-        this.userFormRef.password.setValue(user ? user.password : '');
-        this.userFormRef.userName.setValue(user ? user.userName : '');
     }
 
     componentDidMount() {
@@ -95,5 +84,16 @@ export default class CreateUserForm extends React.Component<any, any>{
                     </fieldset>
                 </form>
             </section>);
+    }
+
+    private setUserForm(user?: IUser) {
+        if (!this.userFormRef || !this.userFormRef.displayName)
+            return;
+
+        console.log('userFormRef', this.userFormRef);
+        this.userFormRef.displayName.setValue(user ? user.displayName : '');
+        this.userFormRef.email.setValue(user ? user.email : '');
+        this.userFormRef.password.setValue(user ? user.password : '');
+        this.userFormRef.userName.setValue(user ? user.userName : '');
     }
 }
